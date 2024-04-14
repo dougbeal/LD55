@@ -38,7 +38,7 @@ jobs:
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          name: web
+          name: github-pages
           path: builds/web
           retention-days: 1
 
