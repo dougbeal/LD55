@@ -40,18 +40,18 @@ jobs:
         with:
           name: web
           path: builds/web
-          retention-days: 1          
+          retention-days: 1
 
   github-pages-deploy:
-    need: gotdot-web-export
+    needs: gotdot-web-export
     premissions:
       pages: write
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}    
+      url: ${{ steps.deployment.outputs.page_url }}
     run-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages 🚀
-        id: deployment        
+        id: deployment
         uses: actions/deploy-pages@v4
