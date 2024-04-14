@@ -11,7 +11,7 @@ env:
 
 jobs:
   export-windows:
-    if: true
+    if: false
     name: Windows Export
     runs-on: ubuntu-20.04
     container:
@@ -46,7 +46,7 @@ jobs:
           PACKAGE: itch.zip
 
   export-linux:
-    if: true
+    if: false
     name: Linux Export
     runs-on: ubuntu-20.04
     container:
@@ -106,12 +106,14 @@ jobs:
           name: web
           path: builds/web
           retention-days: 1
-      # Installing rsync is needed in order to deploy to GitHub Pages. Without it, the build will fail.
-      - name: Install rsync 📚
-        run: |
-          apt-get update && apt-get install -y rsync
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact
+        with:
+          name: web
+          path: builds/web
+          retention-days: 1          
       - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v4
+        uses: actions/deploy-pages
         with:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: builds/web # The folder the action should deploy.
