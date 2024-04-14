@@ -114,9 +114,12 @@ jobs:
           retention-days: 1          
       - name: Deploy to GitHub Pages 🚀
         uses: actions/deploy-pages@v4
-        with:
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: builds/web # The folder the action should deploy.
+        premissions:
+          pages: write
+          id-token: write
+        environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
       - name: Zip Folder
         run: zip -r itch.zip builds/web
       - name: Deploy to itch.io
